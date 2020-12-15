@@ -1,35 +1,6 @@
 Attribute VB_Name = "Module1"
  Option Explicit
 
-Sub QueryStarter()
-'This is an adaptation from some code found at:
-'https://stackoverflow.com/questions/19306832/web-query-vba-refresh
-    
-    Dim url As String
-    url = "URL;https://www.xe.com/currencytables/?from=USD&date=2020-12-01"
-    With Worksheets("Sheet1").QueryTables.Add(Connection:=url, Destination:=Worksheets("Sheet1").Range("A1"))
-        .Name = "My Query"
-        .RowNumbers = False
-        .FillAdjacentFormulas = False
-        .PreserveFormatting = True
-        .RefreshOnFileOpen = False
-        .BackgroundQuery = False
-        .RefreshStyle = xlOverwriteCells
-        .SavePassword = False
-        .SaveData = True
-        .AdjustColumnWidth = True
-        .RefreshPeriod = 0
-        .WebSelectionType = xlEntirePage
-        .WebFormatting = xlWebFormattingNone
-        .WebPreFormattedTextToColumns = True
-        .WebConsecutiveDelimitersAsOne = True
-        .WebSingleBlockTextImport = False
-        .WebDisableDateRecognition = False
-        .WebDisableRedirections = False
-        .Refresh BackgroundQuery:=False
-    End With
-Stop
-End Sub
 
 Sub Openform()
 Dim i As Integer, DateArray As Variant, TodayDate As String
