@@ -109,6 +109,7 @@ End With
 End Sub
 
 Function dateOnUserForm() As String
+Dim DateArr() As String
     FirstSlash = InStr(CurrencyConverter.txtDate, "/")
     DateMonth = Left(CurrencyConverter.txtDate, FirstSlash - 1)
         If DateMonth > 12 Then
@@ -117,17 +118,19 @@ Function dateOnUserForm() As String
         End If
         
     If Len(DateMonth) = 1 Then DateMonth = 0 & DateMonth
-    DateDay = Mid(CurrencyConverter.txtDate, FirstSlash + 1, 2)
+    
     DateYear = Right(CurrencyConverter.txtDate, 4)
         If Len(DateYear) < 4 Then
             
              Exit Function
-            ElseIf DateYear < 1999 Or DateYear > 2020 Then
+            ElseIf DateYear < 1999 Or DateYear > 2021 Then
   
              Exit Function
         End If
-       
-       
+    DateArr = Split(CurrencyConverter.txtDate, "/")
+    DateDay = DateArr(1)
+    
+    If Len(DateDay) = 1 Then DateDay = 0 & DateDay
     dateOnUserForm = DateYear & "-" & DateMonth & "-" & DateDay
  
 End Function
@@ -141,7 +144,7 @@ Sub Calculation()
                 
                 Set convertFromCurrency = Worksheets("Sheet1").Range("A:A").Find(What:=Left(convertFrom, 3), After:=StartUSD, Lookat:=xlPart)
                 Set convertToCurrency = Worksheets("Sheet1").Range("A:A").Find(What:=Left(convertTo, 3), After:=StartUSD, Lookat:=xlPart)
-                 If convertFromCurrency Is Nothing Or convertToCurrency Is Nothing Then
+                If convertFromCurrency Is Nothing Or convertToCurrency Is Nothing Then
                     MsgBox " Apology, this currency is not availible at this time period. Try enter different date?"
                     CurrencyConverter.txtAmountConverted.Value = 0
                     Exit Sub
